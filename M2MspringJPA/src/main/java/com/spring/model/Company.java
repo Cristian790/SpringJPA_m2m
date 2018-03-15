@@ -9,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="company")
 public class Company {
@@ -21,10 +23,17 @@ public class Company {
 	private String email;
 	
 	@ManyToMany(mappedBy="company")
+	
+	@JsonBackReference
 	private List<Customer> customer;
 	
 	public Company() {}
 
+	public Company(int id) {
+		super();
+		this.company_id=id;
+	}
+	
 	public Company(String name, String email, List<Customer> customer) {
 		super();
 		this.name = name;
